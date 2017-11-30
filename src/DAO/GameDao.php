@@ -13,6 +13,6 @@ namespace DAO;
  *
  * @author Etudiant
  */
-class gameDao {
+class GameDao extends \SimpleDAO\DAO {
     //put your code here
 }

@@ -17,4 +17,34 @@ $app['twig'] = $app->extend('twig', function ($twig, $app) {
     return $twig;
 });
 
+$app['pdo'] = function($app){
+  $options=$app['pdo.options'];
+   return new \PDO("{$options['sgbdr']}://host={$options['host']};dbname={$options['dbname']};charset={$options['charset']}", 
+           $options['username'],
+         $options['password'],
+           array(
+          \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+         \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+     ));
+};
+
+$app['users.dao']=function($app){
+    return new \DAO\UserDao($app['pdo']);
+};
+
+$app['categorys.dao']=function($app){
+    return new \DAO\CategoryDao($app['pdo']);
+};
+
+$app['games.dao']=function($app){
+    return new \DAO\GameDao($app['pdo']);
+};
+
+$app['loanings.dao']=function($app){
+    return new \DAO\LoaningDao($app['pdo']);
+};
+
+
+
+
 return $app;
